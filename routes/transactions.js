@@ -49,15 +49,7 @@ router.post('/new', middleware_1.auth, express_validator_1.body('contactId')
     }
     return true;
 }), transactions_1.addTransaction);
-router.patch('/:id', middleware_1.auth, express_validator_1.body('id')
-    .isNumeric()
-    .withMessage('Invalid transaction Id!')
-    .custom(function (value) {
-    if (!value) {
-        throw new Error('This field is required!');
-    }
-    return true;
-}), express_validator_1.body('contactId')
+router.patch('/:id', middleware_1.auth, express_validator_1.body('contactId')
     .isNumeric()
     .withMessage('Invalid contact Id!')
     .custom(function (value) {
@@ -74,7 +66,7 @@ router.patch('/:id', middleware_1.auth, express_validator_1.body('id')
 ])
     .withMessage('Invalid type!')
     .custom(function (value) {
-    if (!value) {
+    if (value === undefined) {
         throw new Error('This field is required!');
     }
     return true;
