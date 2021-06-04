@@ -10,9 +10,9 @@ var contacts_1 = __importDefault(require("./routes/contacts"));
 var transactions_1 = __importDefault(require("./routes/transactions"));
 var app = express_1.default();
 app.use(body_parser_1.json());
-app.use('/accounts', accounts_1.default);
-app.use('/contacts', contacts_1.default);
-app.use('/transactions', transactions_1.default);
+app.use('/api/accounts', accounts_1.default);
+app.use('/api/contacts', contacts_1.default);
+app.use('/api/transactions', transactions_1.default);
 app.use(function (err, req, res, next) {
     res.status(500).json({ message: err.message });
 });
