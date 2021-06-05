@@ -27,11 +27,15 @@ var Accounts = (function () {
         return false;
     };
     Accounts.prototype.isUsernameTaken = function (username) {
-        var index = this.accounts.findIndex(function (account) { return account.username.toLowerCase() === username.toLowerCase(); });
+        var index = this.accounts.findIndex(function (account) {
+            return account.username.toLowerCase() === username.toLowerCase();
+        });
         return index !== -1;
     };
     Accounts.prototype.isEmailTaken = function (email) {
-        var index = this.accounts.findIndex(function (account) { return account.email.toLowerCase() === email.toLowerCase(); });
+        var index = this.accounts.findIndex(function (account) {
+            return account.email.toLowerCase() === email.toLowerCase();
+        });
         return index !== -1;
     };
     Accounts.prototype.login = function (username, password) {

@@ -5,6 +5,7 @@ var express_validator_1 = require("express-validator");
 var accounts_1 = require("../controllers/accounts");
 var mock_1 = require("../mock");
 var router = express_1.Router();
+router.get('/username-availability', accounts_1.checkUsernameAvailability);
 router.post('/create', express_validator_1.body('email')
     .isEmail()
     .withMessage('Invalid email!')

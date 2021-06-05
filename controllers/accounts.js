@@ -11,7 +11,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginToAccount = exports.createAccount = void 0;
+exports.loginToAccount = exports.checkUsernameAvailability = exports.createAccount = void 0;
 var express_validator_1 = require("express-validator");
 var mock_1 = require("../mock");
 var util_1 = require("../util");
@@ -39,6 +39,19 @@ var createAccount = function (req, res, next) {
     }
 };
 exports.createAccount = createAccount;
+var checkUsernameAvailability = function (req, res, next) {
+    var username = req.query.username;
+    if (!username) {
+        return res.status(400).json({
+            error: {
+                message: 'No username provided!',
+            },
+        });
+    }
+    res.status(200)
+        .json({ available: !mock_1.ACCOUNTS.isUsernameTaken(username) });
+};
+exports.checkUsernameAvailability = checkUsernameAvailability;
 var loginToAccount = function (req, res, next) {
     var _a = req.body, username = _a.username, password = _a.password;
     var account = mock_1.ACCOUNTS.login(username, password);
