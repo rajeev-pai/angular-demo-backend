@@ -28,7 +28,7 @@ var createAccount = function (req, res, next) {
     var _b = req.body, email = _b.email, password = _b.password, username = _b.username;
     var account = mock_1.ACCOUNTS.addNewAccount(email, password, username);
     if (account) {
-        res.status(201).json({ data: account });
+        res.status(201).json(__assign({}, account));
     }
     else {
         res.status(200).json({
@@ -44,9 +44,7 @@ var loginToAccount = function (req, res, next) {
     var account = mock_1.ACCOUNTS.login(username, password);
     if (account) {
         account.latestToken = util_1.createJWT(account.getSharableInfo());
-        return res.status(200).json({
-            data: __assign(__assign({}, account.getSharableInfo()), { token: account.latestToken }),
-        });
+        return res.status(200).json(__assign(__assign({}, account.getSharableInfo()), { token: account.latestToken }));
     }
     return res.status(200).json({
         errors: {

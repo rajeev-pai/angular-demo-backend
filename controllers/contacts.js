@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteContact = exports.updateContact = exports.createContact = exports.getContact = exports.getContacts = void 0;
 var express_validator_1 = require("express-validator");
@@ -6,10 +17,7 @@ var mock_1 = require("../mock");
 var getContacts = function (req, res, next) {
     var accountId = +req.params.accountId;
     res.status(200)
-        .json({
-        success: true,
-        data: mock_1.CONTACTS.getContactsOfAccount(accountId),
-    });
+        .json(__assign({}, mock_1.CONTACTS.getContactsOfAccount(accountId)));
 };
 exports.getContacts = getContacts;
 var getContact = function (req, res, next) {
@@ -17,11 +25,7 @@ var getContact = function (req, res, next) {
     var accountId = +req.params.accountId;
     var contactId = +req.params.id;
     var contact = (_a = mock_1.CONTACTS.getContactById(contactId, accountId)) !== null && _a !== void 0 ? _a : null;
-    res.status(200)
-        .json({
-        success: true,
-        data: contact
-    });
+    res.status(200).json(__assign({}, contact));
 };
 exports.getContact = getContact;
 var createContact = function (req, res, next) {
@@ -45,7 +49,7 @@ var createContact = function (req, res, next) {
             },
         });
     }
-    res.status(200).json({ data: contact });
+    res.status(200).json(__assign({}, contact));
 };
 exports.createContact = createContact;
 var updateContact = function (req, res, next) {
@@ -85,6 +89,7 @@ var deleteContact = function (req, res, next) {
             }
         });
     }
-    res.status(200).json({ success: mock_1.CONTACTS.removeContactById(contactId, accountId) });
+    res.status(200)
+        .json({ success: mock_1.CONTACTS.removeContactById(contactId, accountId) });
 };
 exports.deleteContact = deleteContact;

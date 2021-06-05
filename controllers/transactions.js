@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAccountTransactionSummary = exports.getContactTransactionSummary = exports.deleteTransaction = exports.updateTransaction = exports.addTransaction = exports.getTransaction = exports.getTransactions = void 0;
 var express_validator_1 = require("express-validator");
@@ -15,7 +26,7 @@ var getTransactions = function (req, res, next) {
         });
     }
     res.status(200)
-        .json({ data: mock_1.TRANSACTIONS.getTransactionsOfContact(contactId, accountId) });
+        .json(__assign({}, mock_1.TRANSACTIONS.getTransactionsOfContact(contactId, accountId)));
 };
 exports.getTransactions = getTransactions;
 var getTransaction = function (req, res, next) {
@@ -39,7 +50,7 @@ var getTransaction = function (req, res, next) {
         });
     }
     res.status(200)
-        .json({ data: mock_1.TRANSACTIONS.getTransactionOfContact(txnId, contactId, accountId) });
+        .json(__assign({}, mock_1.TRANSACTIONS.getTransactionOfContact(txnId, contactId, accountId)));
 };
 exports.getTransaction = getTransaction;
 var addTransaction = function (req, res, next) {
@@ -55,10 +66,7 @@ var addTransaction = function (req, res, next) {
     var accountId = +req.params.accountId;
     var _b = req.body, contactId = _b.contactId, type = _b.type, amount = _b.amount, dateTime = _b.dateTime, note = _b.note, description = _b.description;
     res.status(201)
-        .json({
-        success: true,
-        data: mock_1.TRANSACTIONS.addNewTransaction(contactId, accountId, type, amount, dateTime, note, description),
-    });
+        .json(__assign({}, mock_1.TRANSACTIONS.addNewTransaction(contactId, accountId, type, amount, dateTime, note, description)));
 };
 exports.addTransaction = addTransaction;
 var updateTransaction = function (req, res, next) {
@@ -83,10 +91,7 @@ var updateTransaction = function (req, res, next) {
     }
     var _b = req.body, contactId = _b.contactId, type = _b.type, amount = _b.amount, dateTime = _b.dateTime, note = _b.note, description = _b.description;
     res.status(201)
-        .json({
-        success: true,
-        data: mock_1.TRANSACTIONS.updateTransaction(id, contactId, accountId, type, amount, dateTime, note, description),
-    });
+        .json(__assign({}, mock_1.TRANSACTIONS.updateTransaction(id, contactId, accountId, type, amount, dateTime, note, description)));
 };
 exports.updateTransaction = updateTransaction;
 var deleteTransaction = function (req, res, next) {
@@ -115,12 +120,12 @@ var getContactTransactionSummary = function (req, res, next) {
         });
     }
     res.status(200)
-        .json({ data: mock_1.TRANSACTIONS.getTransactionSummaryOfContact(contactId, accountId) });
+        .json(__assign({}, mock_1.TRANSACTIONS.getTransactionSummaryOfContact(contactId, accountId)));
 };
 exports.getContactTransactionSummary = getContactTransactionSummary;
 var getAccountTransactionSummary = function (req, res, next) {
     var accountId = +req.params.accountId;
     res.status(200)
-        .json({ data: mock_1.TRANSACTIONS.getTransactionsSummaryOfAccount(accountId) });
+        .json(__assign({}, mock_1.TRANSACTIONS.getTransactionsSummaryOfAccount(accountId)));
 };
 exports.getAccountTransactionSummary = getAccountTransactionSummary;
