@@ -8,6 +8,7 @@ import { FieldErrors } from '../types';
 interface CreateAccountBody {
   email: string;
   password: string;
+  confirmPassword: string;
   username: string;
 }
 
@@ -29,7 +30,22 @@ export const createAccount: RequestHandler = (req, res, next) => {
     return res.status(400).json({ errors: errorMessages });
   }
 
-  const { email, password, username } = req.body as CreateAccountBody;
+  const {
+    email,
+    password,
+    confirmPassword,
+    username,
+  } = req.body as CreateAccountBody;
+
+  if (password !== confirmPassword) {
+    return res.status(400)
+      .json({
+        errors: {
+          confirmPassword: 'Passwords don\'t match!',
+        },
+      });
+  }
+
   const account = ACCOUNTS.addNewAccount(email, password, username);
 
   if (account) {

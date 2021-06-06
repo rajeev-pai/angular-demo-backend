@@ -40,6 +40,14 @@ router.post(
 
       return true;
     }),
+  body('confirmPassword')
+    .custom(value => {
+      if (!value) {
+        throw new Error('This field is required!');
+      }
+
+      return true;
+    }),
   body('username')
     .notEmpty()
     .withMessage('Username cannot be blank!')

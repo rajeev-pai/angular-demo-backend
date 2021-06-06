@@ -25,6 +25,12 @@ router.post('/create', express_validator_1.body('email')
         throw new Error('This field is required!');
     }
     return true;
+}), express_validator_1.body('confirmPassword')
+    .custom(function (value) {
+    if (!value) {
+        throw new Error('This field is required!');
+    }
+    return true;
 }), express_validator_1.body('username')
     .notEmpty()
     .withMessage('Username cannot be blank!')

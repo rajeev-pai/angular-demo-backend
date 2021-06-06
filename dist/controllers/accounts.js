@@ -25,7 +25,15 @@ var createAccount = function (req, res, next) {
         }
         return res.status(400).json({ errors: errorMessages });
     }
-    var _b = req.body, email = _b.email, password = _b.password, username = _b.username;
+    var _b = req.body, email = _b.email, password = _b.password, confirmPassword = _b.confirmPassword, username = _b.username;
+    if (password !== confirmPassword) {
+        return res.status(400)
+            .json({
+            errors: {
+                confirmPassword: 'Passwords don\'t match!',
+            },
+        });
+    }
     var account = mock_1.ACCOUNTS.addNewAccount(email, password, username);
     if (account) {
         res.status(201).json(__assign({}, account));
