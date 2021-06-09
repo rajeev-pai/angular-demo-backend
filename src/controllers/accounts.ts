@@ -87,7 +87,7 @@ export const loginToAccount: RequestHandler = (req, res, next) => {
     });
   }
 
-  return res.status(200).json({
+  return res.status(400).json({
     errors: {
       message: "Invalid login credentials!",
     }

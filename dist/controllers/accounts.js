@@ -67,7 +67,7 @@ var loginToAccount = function (req, res, next) {
         account.latestToken = util_1.createJWT(account.getSharableInfo());
         return res.status(200).json(__assign(__assign({}, account.getSharableInfo()), { token: account.latestToken }));
     }
-    return res.status(200).json({
+    return res.status(400).json({
         errors: {
             message: "Invalid login credentials!",
         }
