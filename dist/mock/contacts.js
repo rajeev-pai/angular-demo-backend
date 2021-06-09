@@ -1,7 +1,19 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CONTACTS = void 0;
 var models_1 = require("../models");
+var transactions_1 = require("./transactions");
 var Contacts = (function () {
     function Contacts() {
         this.lastCreatedContactId = 0;
@@ -22,10 +34,21 @@ var Contacts = (function () {
         return contact;
     };
     Contacts.prototype.getContactsOfAccount = function (accountId) {
-        return this.contacts.filter(function (contact) { return contact.accountId === accountId; });
+        return this.contacts
+            .filter(function (contact) { return contact.accountId === accountId; })
+            .map(function (contact) {
+            var contactTransactions = transactions_1.TRANSACTIONS
+                .getTransactionSummaryOfContact(contact.id, accountId);
+            return __assign(__assign({}, contact), contactTransactions);
+        });
     };
     Contacts.prototype.getContactById = function (id, accountId) {
-        return this.contacts.find(function (c) { return ((c.id === id) && (c.accountId === accountId)); });
+        var contact = this.contacts.find(function (c) { return ((c.id === id) && (c.accountId === accountId)); });
+        if (!contact) {
+            return null;
+        }
+        return __assign(__assign({}, contact), transactions_1.TRANSACTIONS
+            .getTransactionSummaryOfContact(contact.id, accountId));
     };
     Contacts.prototype.removeContactById = function (id, accountId) {
         var index = this.contacts.findIndex(function (contact) { return ((contact.id === id) && (contact.accountId === accountId)); });

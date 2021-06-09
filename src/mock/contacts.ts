@@ -1,4 +1,5 @@
 import { Contact } from '../models';
+import { TRANSACTIONS } from './transactions';
 
 class Contacts {
   private lastCreatedContactId = 0;
@@ -29,11 +30,33 @@ class Contacts {
   }
 
   getContactsOfAccount(accountId: number) {
-    return this.contacts.filter(contact => contact.accountId === accountId);
+    return this.contacts
+      .filter(contact => contact.accountId === accountId)
+      .map(contact => {
+        const contactTransactions = TRANSACTIONS
+          .getTransactionSummaryOfContact(contact.id, accountId);
+
+        return {
+          ...contact,
+          ...contactTransactions,
+        };
+      });
   }
 
   getContactById(id: number, accountId: number) {
-    return this.contacts.find(c => ((c.id === id) && (c.accountId === accountId)));
+    const contact = this.contacts.find(c => (
+      (c.id === id) && (c.accountId === accountId)
+    ));
+
+    if (!contact) {
+      return null;
+    }
+
+    return {
+      ...contact,
+      ...TRANSACTIONS
+        .getTransactionSummaryOfContact(contact.id, accountId),
+    }
   }
 
   removeContactById(id: number, accountId: number) {
