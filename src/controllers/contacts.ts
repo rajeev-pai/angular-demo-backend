@@ -21,7 +21,7 @@ export const getContacts: RequestHandler = (req, res, next) => {
   const accountId = +req.params.accountId;
 
   res.status(200)
-    .json({ ...CONTACTS.getContactsOfAccount(accountId) });
+    .json({ contacts: CONTACTS.getContactsOfAccount(accountId) });
 };
 
 export const getContact: RequestHandler = (req, res, next) => {
@@ -79,7 +79,7 @@ export const updateContact: RequestHandler = (req, res, next) => {
   const { id, firstName, lastName, email } = req.body as UpdateContactBody;
 
   res.status(200).json({
-    data: CONTACTS.updateContact(id, firstName, lastName, email, accountId),
+    ...CONTACTS.updateContact(id, firstName, lastName, email, accountId),
   });
 };
 

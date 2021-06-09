@@ -26,7 +26,9 @@ var getTransactions = function (req, res, next) {
         });
     }
     res.status(200)
-        .json(__assign({}, mock_1.TRANSACTIONS.getTransactionsOfContact(contactId, accountId)));
+        .json({
+        transactions: mock_1.TRANSACTIONS.getTransactionsOfContact(contactId, accountId)
+    });
 };
 exports.getTransactions = getTransactions;
 var getTransaction = function (req, res, next) {

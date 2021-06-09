@@ -28,7 +28,9 @@ export const getTransactions: RequestHandler = (req, res, next) => {
   }
 
   res.status(200)
-    .json({ ...TRANSACTIONS.getTransactionsOfContact(contactId, accountId) });
+    .json({
+      transactions: TRANSACTIONS.getTransactionsOfContact(contactId, accountId)
+    });
 };
 
 export const getTransaction: RequestHandler = (req, res, next) => {

@@ -17,7 +17,7 @@ var mock_1 = require("../mock");
 var getContacts = function (req, res, next) {
     var accountId = +req.params.accountId;
     res.status(200)
-        .json(__assign({}, mock_1.CONTACTS.getContactsOfAccount(accountId)));
+        .json({ contacts: mock_1.CONTACTS.getContactsOfAccount(accountId) });
 };
 exports.getContacts = getContacts;
 var getContact = function (req, res, next) {
@@ -64,9 +64,7 @@ var updateContact = function (req, res, next) {
     }
     var accountId = +req.params.accountId;
     var _b = req.body, id = _b.id, firstName = _b.firstName, lastName = _b.lastName, email = _b.email;
-    res.status(200).json({
-        data: mock_1.CONTACTS.updateContact(id, firstName, lastName, email, accountId),
-    });
+    res.status(200).json(__assign({}, mock_1.CONTACTS.updateContact(id, firstName, lastName, email, accountId)));
 };
 exports.updateContact = updateContact;
 var deleteContact = function (req, res, next) {
