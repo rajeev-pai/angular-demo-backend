@@ -5,8 +5,12 @@ class Transactions {
   private transactions: Transaction[] = [];
 
   constructor() {
-    this.addNewTransaction(1, 1, TransactionType.OWES_YOU, 100, Date.now());
+    this.addNewTransaction(1, 1, TransactionType.OWES_YOU, 10000, Date.now());
+    this.addNewTransaction(1, 1, TransactionType.OWES_YOU, 1000, Date.now());
+    this.addNewTransaction(1, 1, TransactionType.OWES_YOU, 300000, Date.now());
     this.addNewTransaction(2, 1, TransactionType.YOU_OWE, 100, Date.now(), 'Lunch', 'Biriyani from Somewhere');
+    this.addNewTransaction(2, 1, TransactionType.YOU_OWE, 5000, Date.now());
+    this.addNewTransaction(2, 1, TransactionType.YOU_OWE, 100, Date.now());
   }
 
   addNewTransaction(

@@ -6,8 +6,12 @@ var Transactions = (function () {
     function Transactions() {
         this.lastCreatedContactId = 0;
         this.transactions = [];
-        this.addNewTransaction(1, 1, transaction_1.TransactionType.OWES_YOU, 100, Date.now());
+        this.addNewTransaction(1, 1, transaction_1.TransactionType.OWES_YOU, 10000, Date.now());
+        this.addNewTransaction(1, 1, transaction_1.TransactionType.OWES_YOU, 1000, Date.now());
+        this.addNewTransaction(1, 1, transaction_1.TransactionType.OWES_YOU, 300000, Date.now());
         this.addNewTransaction(2, 1, transaction_1.TransactionType.YOU_OWE, 100, Date.now(), 'Lunch', 'Biriyani from Somewhere');
+        this.addNewTransaction(2, 1, transaction_1.TransactionType.YOU_OWE, 5000, Date.now());
+        this.addNewTransaction(2, 1, transaction_1.TransactionType.YOU_OWE, 100, Date.now());
     }
     Transactions.prototype.addNewTransaction = function (contactId, accountId, type, amount, dateTime, note, description) {
         if (note === void 0) { note = ''; }
