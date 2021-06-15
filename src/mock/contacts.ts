@@ -93,7 +93,11 @@ class Contacts {
       }
 
       this.contacts[index].updateDetails(firstName, lastName, email);
-      return this.contacts[index];
+      return {
+        ...this.contacts[index],
+        ...TRANSACTIONS
+          .getTransactionSummaryOfContact(this.contacts[index].id, accountId),
+      };
     }
 
     return null;

@@ -69,7 +69,8 @@ var Contacts = (function () {
                 return null;
             }
             this.contacts[index].updateDetails(firstName, lastName, email);
-            return this.contacts[index];
+            return __assign(__assign({}, this.contacts[index]), transactions_1.TRANSACTIONS
+                .getTransactionSummaryOfContact(this.contacts[index].id, accountId));
         }
         return null;
     };
