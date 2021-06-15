@@ -26,7 +26,11 @@ class Contacts {
     this.lastCreatedContactId += 1;
     const contact = new Contact(this.lastCreatedContactId, email, firstName, lastName, accountId);
     this.contacts.push(contact);
-    return contact;
+    return {
+      ...contact,
+      ...TRANSACTIONS
+        .getTransactionSummaryOfContact(contact.id, accountId),
+    };
   }
 
   getContactsOfAccount(accountId: number) {

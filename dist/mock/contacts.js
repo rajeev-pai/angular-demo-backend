@@ -31,7 +31,8 @@ var Contacts = (function () {
         this.lastCreatedContactId += 1;
         var contact = new models_1.Contact(this.lastCreatedContactId, email, firstName, lastName, accountId);
         this.contacts.push(contact);
-        return contact;
+        return __assign(__assign({}, contact), transactions_1.TRANSACTIONS
+            .getTransactionSummaryOfContact(contact.id, accountId));
     };
     Contacts.prototype.getContactsOfAccount = function (accountId) {
         return this.contacts
