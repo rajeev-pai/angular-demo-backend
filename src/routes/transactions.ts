@@ -40,7 +40,7 @@ router.post(
     ])
     .withMessage('Invalid type!')
     .custom(value => {
-      if (!value) {
+      if (value === undefined) {
         throw new Error('This field is required!');
       }
 
@@ -115,7 +115,7 @@ router.patch(
     .isNumeric()
     .withMessage('Invalid amount')
     .custom(value => {
-      if (!value) {
+      if (value === undefined) {
         throw new Error('This field is required!');
       }
 

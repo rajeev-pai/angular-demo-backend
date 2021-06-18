@@ -25,7 +25,7 @@ router.post('/new', middleware_1.auth, express_validator_1.body('contactId')
 ])
     .withMessage('Invalid type!')
     .custom(function (value) {
-    if (!value) {
+    if (value === undefined) {
         throw new Error('This field is required!');
     }
     return true;
@@ -74,7 +74,7 @@ router.patch('/:id', middleware_1.auth, express_validator_1.body('contactId')
     .isNumeric()
     .withMessage('Invalid amount')
     .custom(function (value) {
-    if (!value) {
+    if (value === undefined) {
         throw new Error('This field is required!');
     }
     if (value < 0) {
