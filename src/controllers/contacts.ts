@@ -27,9 +27,9 @@ export const getContacts: RequestHandler = (req, res, next) => {
 export const getContact: RequestHandler = (req, res, next) => {
   const accountId = +req.params.accountId;
   const contactId = +req.params.id;
-  const contact = CONTACTS.getContactById(contactId, accountId) ?? null;
+  const contact = CONTACTS.getContactById(contactId, accountId);
 
-  res.status(200).json({ ...contact });
+  res.status(200).json(contact ? { ...contact } : null);
 };
 
 export const createContact: RequestHandler = (req, res, next) => {

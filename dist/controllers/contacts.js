@@ -21,11 +21,10 @@ var getContacts = function (req, res, next) {
 };
 exports.getContacts = getContacts;
 var getContact = function (req, res, next) {
-    var _a;
     var accountId = +req.params.accountId;
     var contactId = +req.params.id;
-    var contact = (_a = mock_1.CONTACTS.getContactById(contactId, accountId)) !== null && _a !== void 0 ? _a : null;
-    res.status(200).json(__assign({}, contact));
+    var contact = mock_1.CONTACTS.getContactById(contactId, accountId);
+    res.status(200).json(contact ? __assign({}, contact) : null);
 };
 exports.getContact = getContact;
 var createContact = function (req, res, next) {
