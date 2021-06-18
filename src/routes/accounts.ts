@@ -7,6 +7,7 @@ import {
   checkUsernameAvailability,
 } from '../controllers/accounts';
 import { ACCOUNTS } from '../mock';
+import { auth } from '../middleware';
 
 const router = Router();
 
@@ -66,5 +67,9 @@ router.post(
 );
 
 router.post('/login', loginToAccount);
+
+router.get('/auth-check', auth, (req, res, next) => {
+  res.status(200).json({ auth: true });
+});
 
 export default router;

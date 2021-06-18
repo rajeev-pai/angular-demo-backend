@@ -4,6 +4,7 @@ var express_1 = require("express");
 var express_validator_1 = require("express-validator");
 var accounts_1 = require("../controllers/accounts");
 var mock_1 = require("../mock");
+var middleware_1 = require("../middleware");
 var router = express_1.Router();
 router.get('/username-availability', accounts_1.checkUsernameAvailability);
 router.post('/create', express_validator_1.body('email')
@@ -44,4 +45,7 @@ router.post('/create', express_validator_1.body('email')
     return true;
 }), accounts_1.createAccount);
 router.post('/login', accounts_1.loginToAccount);
+router.get('/auth-check', middleware_1.auth, function (req, res, next) {
+    res.status(200).json({ auth: true });
+});
 exports.default = router;
