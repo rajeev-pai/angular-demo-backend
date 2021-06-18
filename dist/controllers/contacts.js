@@ -42,7 +42,7 @@ var createContact = function (req, res, next) {
     var _b = req.body, firstName = _b.firstName, lastName = _b.lastName, email = _b.email;
     var contact = mock_1.CONTACTS.addNewContact(firstName, lastName, email, accountId);
     if (!contact) {
-        res.status(200)
+        res.status(400)
             .json({
             errors: {
                 duplicate: 'Duplicate contact!',

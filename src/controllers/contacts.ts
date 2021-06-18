@@ -51,7 +51,7 @@ export const createContact: RequestHandler = (req, res, next) => {
   const contact = CONTACTS.addNewContact(firstName, lastName, email, accountId);
 
   if (!contact) {
-    res.status(200)
+    res.status(400)
       .json({
         errors: {
           duplicate: 'Duplicate contact!',
