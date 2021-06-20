@@ -33,6 +33,9 @@ var Transactions = (function () {
         transaction.updateDetails(type, amount, dateTime, note, description);
         return transaction;
     };
+    Transactions.prototype.getTransactionsOfAccount = function (accountId) {
+        return this.transactions.filter(function (txn) { return (txn.accountId === accountId); });
+    };
     Transactions.prototype.getTransactionsOfContact = function (contactId, accountId) {
         return this.transactions.filter(function (txn) { return (txn.contactId === contactId) && (txn.accountId === accountId); });
     };

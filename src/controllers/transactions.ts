@@ -14,7 +14,16 @@ interface TransactionBody {
   description?: string;
 }
 
-export const getTransactions: RequestHandler = (req, res, next) => {
+export const getAccountTransactions: RequestHandler = (req, res, next) => {
+  const accountId = +req.params.accountId;
+
+  res.status(200)
+    .json({
+      transactions: TRANSACTIONS.getTransactionsOfAccount(accountId)
+    });
+};
+
+export const getContactTransactions: RequestHandler = (req, res, next) => {
   const contactId = +req.params.contactId;
   const accountId = +req.params.accountId;
 

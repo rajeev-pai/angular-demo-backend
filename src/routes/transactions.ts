@@ -3,19 +3,21 @@ import { body } from 'express-validator';
 
 import { auth } from '../middleware';
 import {
-  getTransactions,
+  getContactTransactions,
   getTransaction,
   addTransaction,
   updateTransaction,
   deleteTransaction,
   getContactTransactionSummary,
   getAccountTransactionSummary,
+  getAccountTransactions,
 } from '../controllers/transactions';
 import { TransactionType } from '../models';
 
 const router = Router();
 
-router.get('/of/:contactId', auth, getTransactions);
+router.get('/', auth, getAccountTransactions);
+router.get('/of/:contactId', auth, getContactTransactions);
 router.get('/:id', auth, getTransaction);
 
 router.post(

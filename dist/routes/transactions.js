@@ -6,7 +6,8 @@ var middleware_1 = require("../middleware");
 var transactions_1 = require("../controllers/transactions");
 var models_1 = require("../models");
 var router = express_1.Router();
-router.get('/of/:contactId', middleware_1.auth, transactions_1.getTransactions);
+router.get('/', middleware_1.auth, transactions_1.getAccountTransactions);
+router.get('/of/:contactId', middleware_1.auth, transactions_1.getContactTransactions);
 router.get('/:id', middleware_1.auth, transactions_1.getTransaction);
 router.post('/new', middleware_1.auth, express_validator_1.body('contactId')
     .isNumeric()

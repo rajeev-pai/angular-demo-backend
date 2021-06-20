@@ -11,10 +11,18 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAccountTransactionSummary = exports.getContactTransactionSummary = exports.deleteTransaction = exports.updateTransaction = exports.addTransaction = exports.getTransaction = exports.getTransactions = void 0;
+exports.getAccountTransactionSummary = exports.getContactTransactionSummary = exports.deleteTransaction = exports.updateTransaction = exports.addTransaction = exports.getTransaction = exports.getContactTransactions = exports.getAccountTransactions = void 0;
 var express_validator_1 = require("express-validator");
 var mock_1 = require("../mock");
-var getTransactions = function (req, res, next) {
+var getAccountTransactions = function (req, res, next) {
+    var accountId = +req.params.accountId;
+    res.status(200)
+        .json({
+        transactions: mock_1.TRANSACTIONS.getTransactionsOfAccount(accountId)
+    });
+};
+exports.getAccountTransactions = getAccountTransactions;
+var getContactTransactions = function (req, res, next) {
     var contactId = +req.params.contactId;
     var accountId = +req.params.accountId;
     if (!contactId) {
@@ -30,7 +38,7 @@ var getTransactions = function (req, res, next) {
         transactions: mock_1.TRANSACTIONS.getTransactionsOfContact(contactId, accountId)
     });
 };
-exports.getTransactions = getTransactions;
+exports.getContactTransactions = getContactTransactions;
 var getTransaction = function (req, res, next) {
     var txnId = +req.params.id;
     var accountId = +req.params.accountId;
