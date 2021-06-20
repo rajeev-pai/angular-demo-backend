@@ -45,16 +45,16 @@ export const getContactTransactions: RequestHandler = (req, res, next) => {
 export const getTransaction: RequestHandler = (req, res, next) => {
   const txnId = +req.params.id;
   const accountId = +req.params.accountId;
-  const contactId = +req.query.contactId!;
+  // const contactId = +req.query.contactId!;
 
-  if (!contactId) {
-    return res.status(400)
-      .json({
-        errors: {
-          id: 'Contact Id not provided!',
-        },
-      });
-  }
+  // if (!contactId) {
+  //   return res.status(400)
+  //     .json({
+  //       errors: {
+  //         id: 'Contact Id not provided!',
+  //       },
+  //     });
+  // }
 
   if (!txnId) {
     return res.status(400)
@@ -66,7 +66,7 @@ export const getTransaction: RequestHandler = (req, res, next) => {
   }
 
   res.status(200)
-    .json({ ...TRANSACTIONS.getTransactionOfContact(txnId, contactId, accountId) });
+    .json({ ...TRANSACTIONS.getTransactionOfContact(txnId, accountId) });
 };
 
 export const addTransaction: RequestHandler = (req, res, next) => {

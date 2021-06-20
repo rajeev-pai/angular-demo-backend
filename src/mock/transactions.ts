@@ -68,10 +68,9 @@ class Transactions {
     return this.transactions.filter(txn => (txn.contactId === contactId) && (txn.accountId === accountId));
   }
 
-  getTransactionOfContact(id: number, contactId: number, accountId: number) {
+  getTransactionOfContact(id: number, accountId: number) {
     return this.transactions.find(txn => (
       (txn.id === id)
-      && (txn.contactId === contactId)
       && (txn.accountId === accountId)
     ));
   }

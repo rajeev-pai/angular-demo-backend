@@ -39,9 +39,8 @@ var Transactions = (function () {
     Transactions.prototype.getTransactionsOfContact = function (contactId, accountId) {
         return this.transactions.filter(function (txn) { return (txn.contactId === contactId) && (txn.accountId === accountId); });
     };
-    Transactions.prototype.getTransactionOfContact = function (id, contactId, accountId) {
+    Transactions.prototype.getTransactionOfContact = function (id, accountId) {
         return this.transactions.find(function (txn) { return ((txn.id === id)
-            && (txn.contactId === contactId)
             && (txn.accountId === accountId)); });
     };
     Transactions.prototype.getTransactionSummaryOfContact = function (contactId, accountId) {

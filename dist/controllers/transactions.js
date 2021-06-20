@@ -42,15 +42,6 @@ exports.getContactTransactions = getContactTransactions;
 var getTransaction = function (req, res, next) {
     var txnId = +req.params.id;
     var accountId = +req.params.accountId;
-    var contactId = +req.query.contactId;
-    if (!contactId) {
-        return res.status(400)
-            .json({
-            errors: {
-                id: 'Contact Id not provided!',
-            },
-        });
-    }
     if (!txnId) {
         return res.status(400)
             .json({
@@ -60,7 +51,7 @@ var getTransaction = function (req, res, next) {
         });
     }
     res.status(200)
-        .json(__assign({}, mock_1.TRANSACTIONS.getTransactionOfContact(txnId, contactId, accountId)));
+        .json(__assign({}, mock_1.TRANSACTIONS.getTransactionOfContact(txnId, accountId)));
 };
 exports.getTransaction = getTransaction;
 var addTransaction = function (req, res, next) {
