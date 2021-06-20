@@ -11,10 +11,9 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginToAccount = exports.checkUsernameAvailability = exports.createAccount = void 0;
+exports.getAccountDetails = exports.loginToAccount = exports.checkUsernameAvailability = exports.createAccount = void 0;
 var express_validator_1 = require("express-validator");
 var mock_1 = require("../mock");
-var util_1 = require("../util");
 var createAccount = function (req, res, next) {
     var errors = express_validator_1.validationResult(req);
     if (!errors.isEmpty()) {
@@ -64,8 +63,7 @@ var loginToAccount = function (req, res, next) {
     var _a = req.body, username = _a.username, password = _a.password;
     var account = mock_1.ACCOUNTS.login(username, password);
     if (account) {
-        account.latestToken = util_1.createJWT(account.getSharableInfo());
-        return res.status(200).json(__assign(__assign({}, account.getSharableInfo()), { token: account.latestToken }));
+        return res.status(200).json(__assign({}, account));
     }
     return res.status(400).json({
         errors: {
@@ -74,3 +72,9 @@ var loginToAccount = function (req, res, next) {
     });
 };
 exports.loginToAccount = loginToAccount;
+var getAccountDetails = function (req, res, next) {
+    var accountId = +req.params.accountId;
+    res.status(200)
+        .json(__assign({}, mock_1.ACCOUNTS.getAccountDetails(accountId)));
+};
+exports.getAccountDetails = getAccountDetails;

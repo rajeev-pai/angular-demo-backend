@@ -5,12 +5,14 @@ import {
   createAccount,
   loginToAccount,
   checkUsernameAvailability,
+  getAccountDetails,
 } from '../controllers/accounts';
 import { ACCOUNTS } from '../mock';
 import { auth } from '../middleware';
 
 const router = Router();
 
+router.get('/', auth, getAccountDetails);
 router.get('/username-availability', checkUsernameAvailability);
 
 router.post(

@@ -1,4 +1,5 @@
 import { Account } from '../models';
+import { createJWT } from '../util';
 
 class Accounts {
   private lastCreatedAccountId = 0;
@@ -52,7 +53,29 @@ class Accounts {
   }
 
   login(username: string, password: string) {
-    return this.accounts.find(acc => acc.checkLogin(username, password));
+    const account = this.accounts
+      .find(acc => acc.checkLogin(username, password));
+
+    if (account) {
+      this.createTokenIfNotExist(account);
+
+      return {
+        ...account.getSharableInfo(),
+        token: account.latestToken,
+      };
+    }
+
+    return null;
+  }
+
+  getAccountDetails(accountId: number) {
+    const account = this.accounts.find(acc => acc.id === accountId);
+
+    if (account) {
+      return account.getSharableInfo();
+    }
+
+    return null;
   }
 
   private checkIfExistingAccount(email: string, username: string) {
@@ -64,6 +87,12 @@ class Accounts {
     });
 
     return index !== -1;
+  }
+
+  private createTokenIfNotExist(account: Account) {
+    if (!account.latestToken) {
+      account.latestToken = createJWT(account.getSharableInfo());
+    }
   }
 }
 

@@ -6,6 +6,7 @@ var accounts_1 = require("../controllers/accounts");
 var mock_1 = require("../mock");
 var middleware_1 = require("../middleware");
 var router = express_1.Router();
+router.get('/', middleware_1.auth, accounts_1.getAccountDetails);
 router.get('/username-availability', accounts_1.checkUsernameAvailability);
 router.post('/create', express_validator_1.body('email')
     .isEmail()

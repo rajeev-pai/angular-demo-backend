@@ -79,11 +79,11 @@ export const loginToAccount: RequestHandler = (req, res, next) => {
   const account = ACCOUNTS.login(username, password);
 
   if (account) {
-    account.latestToken = createJWT(account.getSharableInfo());
+    // account.latestToken = createJWT(account.getSharableInfo());
 
     return res.status(200).json({
-      ...account.getSharableInfo(),
-      token: account.latestToken,
+      ...account
+      // token: account.latestToken,
     });
   }
 
@@ -92,4 +92,11 @@ export const loginToAccount: RequestHandler = (req, res, next) => {
       message: "Invalid login credentials!",
     }
   });
+};
+
+export const getAccountDetails: RequestHandler = (req, res, next) => {
+  const accountId = +req.params.accountId;
+
+  res.status(200)
+    .json({ ...ACCOUNTS.getAccountDetails(accountId) });
 };
