@@ -7,8 +7,8 @@ var transactions_1 = require("../controllers/transactions");
 var models_1 = require("../models");
 var router = express_1.Router();
 router.get('/', middleware_1.auth, transactions_1.getAccountTransactions);
+router.get('/account-summary', middleware_1.auth, transactions_1.getAccountTransactionSummary);
 router.get('/of/:contactId', middleware_1.auth, transactions_1.getContactTransactions);
-router.get('/:id', middleware_1.auth, transactions_1.getTransaction);
 router.post('/new', middleware_1.auth, express_validator_1.body('contactId')
     .isNumeric()
     .withMessage('Invalid contact Id!')
@@ -93,5 +93,5 @@ router.patch('/:id', middleware_1.auth, express_validator_1.body('contactId')
 }), transactions_1.updateTransaction);
 router.delete('/:id', middleware_1.auth, transactions_1.deleteTransaction);
 router.get('/contact-summary/:id', middleware_1.auth, transactions_1.getContactTransactionSummary);
-router.get('/account-summary/:id', middleware_1.auth, transactions_1.getAccountTransactionSummary);
+router.get('/:id', middleware_1.auth, transactions_1.getTransaction);
 exports.default = router;

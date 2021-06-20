@@ -17,8 +17,9 @@ import { TransactionType } from '../models';
 const router = Router();
 
 router.get('/', auth, getAccountTransactions);
+router.get('/account-summary', auth, getAccountTransactionSummary);
+
 router.get('/of/:contactId', auth, getContactTransactions);
-router.get('/:id', auth, getTransaction);
 
 router.post(
   '/new',
@@ -142,6 +143,6 @@ router.patch(
 
 router.delete('/:id', auth, deleteTransaction);
 router.get('/contact-summary/:id', auth, getContactTransactionSummary);
-router.get('/account-summary/:id', auth, getAccountTransactionSummary);
+router.get('/:id', auth, getTransaction);
 
 export default router;
