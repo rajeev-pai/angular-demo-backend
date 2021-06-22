@@ -6,6 +6,7 @@ import {
   loginToAccount,
   checkUsernameAvailability,
   getAccountDetails,
+  updateAccountDetails,
 } from '../controllers/accounts';
 import { ACCOUNTS } from '../mock';
 import { auth } from '../middleware';
@@ -59,7 +60,7 @@ router.post(
         throw new Error('This field is required!');
       }
 
-      if (ACCOUNTS.isUsernameTaken(value)) {
+      if (ACCOUNTS.isUsernameTaken(value).taken) {
         throw new Error('Username already taken!');
       }
 
@@ -67,6 +68,8 @@ router.post(
     }),
   createAccount
 );
+
+router.patch('/', auth, updateAccountDetails);
 
 router.post('/login', loginToAccount);
 

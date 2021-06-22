@@ -11,7 +11,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAccountDetails = exports.loginToAccount = exports.checkUsernameAvailability = exports.createAccount = void 0;
+exports.updateAccountDetails = exports.getAccountDetails = exports.loginToAccount = exports.checkUsernameAvailability = exports.createAccount = void 0;
 var express_validator_1 = require("express-validator");
 var mock_1 = require("../mock");
 var createAccount = function (req, res, next) {
@@ -56,7 +56,7 @@ var checkUsernameAvailability = function (req, res, next) {
         });
     }
     res.status(200)
-        .json({ available: !mock_1.ACCOUNTS.isUsernameTaken(username) });
+        .json({ available: !mock_1.ACCOUNTS.isUsernameTaken(username).taken });
 };
 exports.checkUsernameAvailability = checkUsernameAvailability;
 var loginToAccount = function (req, res, next) {
@@ -78,3 +78,17 @@ var getAccountDetails = function (req, res, next) {
         .json(__assign({}, mock_1.ACCOUNTS.getAccountDetails(accountId)));
 };
 exports.getAccountDetails = getAccountDetails;
+var updateAccountDetails = function (req, res, next) {
+    var accountId = +req.params.accountId;
+    var username = req.body.username;
+    var updatedData = mock_1.ACCOUNTS.updateAccountUsername(accountId, username);
+    if (updatedData) {
+        res.status(200).json(__assign({}, updatedData));
+    }
+    return res.status(400).json({
+        errors: {
+            username: "Username is already taken!",
+        }
+    });
+};
+exports.updateAccountDetails = updateAccountDetails;

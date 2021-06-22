@@ -17,6 +17,10 @@ interface LoginBody {
   password: string;
 }
 
+interface UpdateAccountBody {
+  username: string;
+}
+
 export const createAccount: RequestHandler = (req, res, next) => {
   const errors = validationResult(req);
 
@@ -71,7 +75,7 @@ export const checkUsernameAvailability: RequestHandler = (req, res, next) => {
   }
 
   res.status(200)
-    .json({ available: !ACCOUNTS.isUsernameTaken(username as string) });
+    .json({ available: !ACCOUNTS.isUsernameTaken(username as string).taken });
 };
 
 export const loginToAccount: RequestHandler = (req, res, next) => {
@@ -99,4 +103,21 @@ export const getAccountDetails: RequestHandler = (req, res, next) => {
 
   res.status(200)
     .json({ ...ACCOUNTS.getAccountDetails(accountId) });
+};
+
+export const updateAccountDetails: RequestHandler = (req, res, next) => {
+  const accountId = +req.params.accountId;
+  const { username } = req.body as UpdateAccountBody;
+
+  const updatedData = ACCOUNTS.updateAccountUsername(accountId, username);
+
+  if (updatedData) {
+    res.status(200).json({ ...updatedData });
+  }
+
+  return res.status(400).json({
+    errors: {
+      username: "Username is already taken!",
+    }
+  });
 };

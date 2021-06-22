@@ -30,6 +30,16 @@ var Accounts = (function () {
         this.accounts.push(newAccount);
         return newAccount.getSharableInfo();
     };
+    Accounts.prototype.updateAccountUsername = function (accountId, username) {
+        var index = this.accounts.findIndex(function (acc) { return acc.id === accountId; });
+        var usernameStatus = this.isUsernameTaken(username);
+        if (usernameStatus.taken && (usernameStatus.index !== index)) {
+            return null;
+        }
+        var account = this.accounts[index];
+        account.username = username;
+        return __assign({}, account.getSharableInfo());
+    };
     Accounts.prototype.removeAccount = function (id) {
         var index = this.accounts.findIndex(function (account) { return account.id === id; });
         if (index !== -1) {
@@ -42,7 +52,10 @@ var Accounts = (function () {
         var index = this.accounts.findIndex(function (account) {
             return account.username.toLowerCase() === username.toLowerCase();
         });
-        return index !== -1;
+        return {
+            taken: index !== -1,
+            index: index
+        };
     };
     Accounts.prototype.isEmailTaken = function (email) {
         var index = this.accounts.findIndex(function (account) {

@@ -27,6 +27,19 @@ class Accounts {
     return newAccount.getSharableInfo();
   }
 
+  updateAccountUsername(accountId: number, username: string) {
+    const index = this.accounts.findIndex(acc => acc.id === accountId);
+    const usernameStatus = this.isUsernameTaken(username);
+
+    if (usernameStatus.taken && (usernameStatus.index !== index)) {
+      return null;
+    }
+
+    const account = this.accounts[index];
+    account.username = username;
+    return { ...account.getSharableInfo() };
+  }
+
   removeAccount(id: number) {
     const index = this.accounts.findIndex(account => account.id === id);
 
@@ -42,7 +55,11 @@ class Accounts {
     const index = this.accounts.findIndex(account => {
       return account.username.toLowerCase() === username.toLowerCase();
     });
-    return index !== -1;
+
+    return {
+      taken: index !== -1,
+      index
+    };
   }
 
   isEmailTaken(email: string) {

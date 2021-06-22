@@ -40,11 +40,12 @@ router.post('/create', express_validator_1.body('email')
     if (!value) {
         throw new Error('This field is required!');
     }
-    if (mock_1.ACCOUNTS.isUsernameTaken(value)) {
+    if (mock_1.ACCOUNTS.isUsernameTaken(value).taken) {
         throw new Error('Username already taken!');
     }
     return true;
 }), accounts_1.createAccount);
+router.patch('/', middleware_1.auth, accounts_1.updateAccountDetails);
 router.post('/login', accounts_1.loginToAccount);
 router.get('/auth-check', middleware_1.auth, function (req, res, next) {
     res.status(200).json({ auth: true });
