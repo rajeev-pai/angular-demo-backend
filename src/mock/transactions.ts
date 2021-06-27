@@ -49,14 +49,21 @@ class Transactions {
     description = '',
   ) {
     const transaction = this.transactions.find(txn => {
-      return ((txn.id === id) && (txn.accountId === accountId) && (txn.contactId === contactId));
+      return ((txn.id === id) && (txn.accountId === accountId));
     });
 
     if (!transaction) {
       return null;
     }
 
-    transaction.updateDetails(type, amount, dateTime, note, description);
+    transaction.updateDetails(
+      contactId,
+      type,
+      amount,
+      dateTime,
+      note,
+      description
+    );
     return transaction;
   }
 

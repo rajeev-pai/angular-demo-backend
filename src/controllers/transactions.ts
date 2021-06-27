@@ -124,7 +124,14 @@ export const updateTransaction: RequestHandler = (req, res, next) => {
       });
   }
 
-  const { contactId, type, amount, dateTime, note, description } = req.body as TransactionBody;
+  const {
+    contactId,
+    type,
+    amount,
+    dateTime,
+    note,
+    description
+  } = req.body as TransactionBody;
 
   res.status(201)
     .json({

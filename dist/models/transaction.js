@@ -21,9 +21,10 @@ var Transaction = (function () {
         this.createdAt = Date.now();
         this.updatedAt = Date.now();
     }
-    Transaction.prototype.updateDetails = function (type, amount, dateTime, note, description) {
+    Transaction.prototype.updateDetails = function (contactId, type, amount, dateTime, note, description) {
         if (note === void 0) { note = ''; }
         if (description === void 0) { description = ''; }
+        this.contactId = contactId;
         this.type = type;
         this.amount = amount;
         this.dateTime = dateTime;

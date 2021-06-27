@@ -22,12 +22,14 @@ export class Transaction {
   }
 
   updateDetails(
+    contactId: number,
     type: TransactionType,
     amount: number,
     dateTime: number,
     note = '',
     description = '',
   ) {
+    this.contactId = contactId;
     this.type = type;
     this.amount = amount;
     this.dateTime = dateTime;

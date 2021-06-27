@@ -25,12 +25,12 @@ var Transactions = (function () {
         if (note === void 0) { note = ''; }
         if (description === void 0) { description = ''; }
         var transaction = this.transactions.find(function (txn) {
-            return ((txn.id === id) && (txn.accountId === accountId) && (txn.contactId === contactId));
+            return ((txn.id === id) && (txn.accountId === accountId));
         });
         if (!transaction) {
             return null;
         }
-        transaction.updateDetails(type, amount, dateTime, note, description);
+        transaction.updateDetails(contactId, type, amount, dateTime, note, description);
         return transaction;
     };
     Transactions.prototype.getTransactionsOfAccount = function (accountId) {
